@@ -1,4 +1,11 @@
-<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
     jQuery(document).ready(() => $('body').append('<p>one</p>'))
+    // ready는 dom을 기다린다, jQuery를 call하면 collection을 받는다.
+    $(document).ready(() => $('body').append('<p>two</p>'))
+
+    let readyFn = () => $('body').append('<p>three</p>')
+    $(document).ready(readyFn)
+    // $() 는 jQuery(document).ready()의 줄임이다.
+    $(() => $('body').append('<p>four</p>'))
 </script>

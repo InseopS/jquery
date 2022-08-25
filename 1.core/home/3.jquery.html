@@ -1,0 +1,15 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+    let msg = 'div.foo가 '
+
+    $(() => {
+    // 과제: class foo, div element가 없으면, {}을 실행하라. 는 코드를 작성하라.
+        msg += $('div.foo').length ? '있다.' : '없다.'
+
+        console.log(msg)
+    })
+</script>
+
+<body>
+    <div class='foo'></div>
+</body>

@@ -1,0 +1,39 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+$(() => {
+    $('<div>').appendTo('hr')
+    // div 하나인 collector가 생성된다.
+    $('<div>', {
+        html: '<p class="center">red</p>',
+        class: 'red'
+    }).appendTo('hr')
+    // 첫번째 속성은 string, 두번째 속성은 객체로 작성한다.
+})
+</script>
+
+<style>
+    div {
+        background-color: orange;
+        width: 5em;
+        height: 5rem;
+        border-radius: 2.5rem;
+    }
+    
+    hr {
+        border: .1rem solid;
+    }
+
+    .red {
+        background-color: red;
+        position: relative;
+    }
+
+    p.center {
+        position: absolute;
+        left: 1.7rem;
+        top: 1rem;
+        font-weight: bold;
+    }
+</style>
+
+<hr>
