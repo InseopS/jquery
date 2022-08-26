@@ -119,6 +119,6 @@ $('form input[name="gender"]:radio')
     <input name='gender' type='radio'></input>
 </form> */}
 
-$('form :rest') // <input type= 'reset'/>
+$('form :reset') // <input type= 'reset'/>
 
 $('form: submit') // <input type= 'submit'/>
