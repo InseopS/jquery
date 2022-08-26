@@ -1,0 +1,27 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+    $(() => {
+        console.log($('.4').parent())
+        // 대상의 레벨을 찾는다.
+        console.log($('.4').parents())
+        // 대상의 상위 루트까지 레벨들을 찾는다.
+        console.log($('.4').parents('div'))
+        // 대상의 상위 루트까지 레벨에서 조건을 만족하는 대상들을 찾는다.
+        console.log($('.4').parentsUntil('div.1'))
+        // 대상의 상위 루트까지 레벨에서 조건 미만의 레벨 대상들을 찾는다.
+        console.log($('.4').closest('div'))
+        // 대상의 상위 루트까지 레벨에서 조건이 포함되는 대상 하나만 찾는다.
+    })
+</script>
+
+<pre>
+    <div class='1'>
+        <div class='2-1'>
+            <div class='3'>
+                <div class='4'></div>
+            </div>
+        </div>
+        <div class='2-2'></div>
+        <div class='2-3'></div>
+    </div>
+</pre>

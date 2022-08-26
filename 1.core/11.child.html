@@ -1,0 +1,21 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+    $(() => {
+        console.log($('.1').children())
+        // 대상보다 1 레벨 아래의 대상들을 찾는다.
+        console.log($('.1').find('div'))
+        // 대상보다 레벨 낮은 대상들을 찾는다.
+    })
+</script>
+
+<pre>
+    <div class='1'>
+        <div class='2-1'>
+            <div class='3'>
+                <div class='4'></div>
+            </div>
+        </div>
+        <div class='2-2'></div>
+        <div class='2-3'></div>
+    </div>
+</pre>
