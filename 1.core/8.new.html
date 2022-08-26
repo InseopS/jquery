@@ -3,18 +3,22 @@
     $(() => {
         $('<div>').appendTo('hr')
         // div 하나인 collector가 생성된다.
-        $('<div>', {
-            html: '<p class="center">red</p>',
-            class: 'red'
-        }).appendTo('hr')
+
+        // $('<div>', {
+        //     html: '<p class="center">red</p>',
+        //     class: 'red'
+        // }).appendTo('hr')
         // 첫번째 속성은 string, 두번째 속성은 객체로 작성한다.
+
+        // 과제: 위 $() 파라미터를 하나로 줄여라.
+        $('<div class="red"><p class="center">red</p>').appendTo('hr')
     })
 </script>
 
 <style>
     div {
         background-color: orange;
-        width: 5em;
+        width: 5rem;
         height: 5rem;
         border-radius: 2.5rem;
     }
@@ -29,10 +33,18 @@
     }
 
     p.center {
-        position: absolute;
-        left: 1.7rem;
-        top: 1rem;
         font-weight: bold;
+        text-align: center;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        /*  부모 내부에 존재하는 것들의 위치를 잡을 때,
+            text는 정중앙 배치 시 위 속성 중 font만 제외하고 모두 적용한다.
+            객체는 정중앙 배치 시 아래와 스타일을 같이 적용한다.
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);*/
     }
 </style>
 

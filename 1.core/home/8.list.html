@@ -1,10 +1,11 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
     $(() => {
-        let arr = new Array()
+        let items = []
         for (i = 0; i < 10; i++)
-            arr.push((`<li>item ${i}</li>`))
-        $(arr.join('')).appendTo('ul')
+            items.push((`<li>item ${i}</li>`))
+
+        $(items.join('')).appendTo('ul')
 
         // for(i = 0; i < 10; i++)
         // $('<li>'+ 'item ' + i +'</li>').appendTo('ul')
@@ -22,5 +23,4 @@
         ...
         <li>item 9</li>
     </ul>
-    editorTextFocus && editorLangId == csharp
 -->
