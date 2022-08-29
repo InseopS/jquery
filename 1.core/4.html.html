@@ -12,6 +12,9 @@
         $('ul').find('li').eq(2).html('index: 2').end()
             .eq(3).html('index: 3').end()
             .eq(4).html('index: 4')
+        // text 만을 취급 할 땐 .text를 쓰면된다.
+        $('h1').text('Hi')
+        console.log($('h1').text())
     })
 </script>
 
