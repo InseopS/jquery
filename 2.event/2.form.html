@@ -1,0 +1,35 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<!-- <link rel='stylesheet' href='http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'/> -->
+<script>
+    $(() => {
+        $('button').click(() => {
+            // 과제: userName field 값을 입력했으면, 을 구현하라.
+            if ($(':text').val()) $('form').submit()
+            // form에 있는 handler가 submit 이벤트를 발생시킨다.
+            // 과제: '사용자명을 입력하세요.' error message를 <span>에 출력하라.
+            // else {
+            //     $('span').empty(),
+            //     $('span').append('<mark>사용자명을 입력하세요.</mark>')
+            // }
+            // else $('span').html('<mark>사용자명을 입력하세요.</mark>')
+            // else $('span').text('사용자명을 입력하세요.')
+
+            // 과제: 에러메세지를 빨간색으로 출력하라.
+            // else $('span').text('사용자명을 입력하세요.').css('color', 'red')
+            // else $('span').text('사용자명을 입력하세요.').addClass('text-danger')
+            // 과제: 에러메세지를 빨간색으로 출력하라. 그리고,
+            //      userName filed의 border를 점선으로 바꿔라.
+            else {
+                $('span').text('사용자명을 입력하세요.').css('color', 'red')
+                $('input[name="userName"]').css('border', 'dotted')
+            }
+        })
+    })
+</script>
+
+<form>
+    <input type='text' name='userName' placeholder='사용자명' /><span></span><br>
+    <button type='button'>submit</button>
+    <!--폼을 작성하다 = 폼에 내용을 채운다.
+        폼을 제출하다 = 폼에 작성된 내용을 submit 버튼을 눌러 보낸다. -->
+</form>

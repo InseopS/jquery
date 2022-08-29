@@ -1,0 +1,14 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+    $(() => {
+        let cnt = 0
+        // collect 객체에 click 이벤트가 발생하면 handler가 동작 수행
+        $('button').eq(0).click(() => $(`<li>${cnt++}</li>`).appendTo('ul'))
+        // note: hr java에 사용하자.
+        $('button').eq(1).click(() => $('ul').empty())
+    })
+</script>
+
+<button type='button'>click</button>
+<button type='button'>clear</button>
+<ul></ul>
