@@ -1,0 +1,29 @@
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+    $(() => {
+        $('button').click(() => {
+            $.ajax({
+                url: '1.data.json',
+                data: { id: 'yellow' },
+                type: 'get',
+                dataType: 'json',
+                // 위로 4줄은 request 내용이다.
+                success: (data, status, xhr) => {
+                    $('<h3>').text(data.userName).appendTo('body')
+                    $('<p>').html(status).appendTo('body')
+                    console.log(xhr)
+                },
+                error: (xhr, status) => {
+                    console.log('error: ', status)
+                    console.log(xhr)
+                },
+                complete: (xhr, status) => {
+                    console.log('comple: ', status)
+                }
+                // status에는 작업의 성공, 실패 유무 등의 값이 저장된다.
+            })
+        })
+    })
+</script>
+
+<button type='button'>click</button>
