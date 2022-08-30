@@ -2,4 +2,5 @@
 복습범위:
   ✔ 1.2 attr ~ 1.8 new @started(22-08-26 09:51) @done(22-08-26 14:07) @lasted(4h16m59s)
   ✔ 1.9 object ~ 1.20 val @started(22-08-26 11:18) @done(22-08-29 14:20) @lasted(3d3h2m27s)
-  ☐ 1.21 replace ~ 2.12 error @started(22-08-29 14:23)
+  ✔ 1.21 replace ~ 2.12 error @started(22-08-29 14:23) @done(22-08-30 14:27) @lasted(1d4m54s)
+  ☐ 3.1 ajax ~ 3.2 fruits @started(22-08-30 10:34)
