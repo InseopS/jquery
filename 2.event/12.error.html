@@ -1,7 +1,10 @@
 <script>
     window.onerror = (msg, url, line, col, err) => {
-        document.write(`${msg}<br>`)
-
+        document.write(`${msg} <br>`)
+        document.write(`at ${line}:${col} of ${url}`)
+        document.write(`<hr>`)
+        document.write(err)
     }
-a;
+
+    a; // Uncaught ReferenceError: a is not defined
 </script>
