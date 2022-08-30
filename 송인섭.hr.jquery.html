@@ -13,22 +13,88 @@
 <script>
     $(() => {
         let table = $('tbody')
+        let msgBody = $('#msgModal').find('p')
+        let errMsg
         let laborers
         let laborer, col, val, tr, td
-        let id = 0
+        let id = 1
 
         $('button').filter('.btn-success').click(() => {
-            if($('input').eq(0).val() != '' && $('input').eq(0).val().length <= 5) {
-                if($('input').eq(1).val() != '') {
-                    table.append($(`<tr><td><input type="radio" /></td><td>${id++}</td><td>${$('input').eq(0).val()}</td><td>${$('input').eq(1).val()}</td></tr>`))
+            $('button').eq(0).removeAttr('data-toggle').removeAttr('data-target')
+
+            if ($('input').eq(0).val() != '' && $('input').eq(0).val().length <= 5) {
+                if ($('input').eq(1).val() != '') {
+                    table.append($(`<tr><td><input type="radio" name="select"/></td><td>${id++}</td><td>${$('input').eq(0).val()}</td><td>${$('input').eq(1).val()}</td></tr>`))
+
+                    $('input').eq(0).val('')
+                    $('input').eq(1).val('')
                 } else {
-                    data-toggle='modal',
-                                data-target='#delLaborerModal'}
-            } else {}
+                    errMsg = "입사일을 연도-월-일 형식으로 직접 혹은 선택하여 입력하세요."
+                    msgBody.text(errMsg)
+                    $('button').eq(0).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+                }
+            } else {
+                errMsg = "노동자명을 1자 이상, 5자 이하로 입력하세요."
+                msgBody.text(errMsg)
+                $('button').eq(0).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+            }
+        })
+
+        $('button').filter('.btn-info').click(() => {
+            $('button').eq(1).removeAttr('data-toggle').removeAttr('data-target')
+            if (table.children().length != 0) {
+                if ($('input').eq(0).val() != '' && $('input').eq(0).val().length <= 5) {
+                    if ($('input').eq(1).val() != '') {
+                        if ($(':checked').length != 0) {
+                            $(':checked').parent().siblings().eq(1).text($('input').eq(0).val())
+                            $(':checked').parent().siblings().eq(2).text($('input').eq(1).val())
+                            $('input').eq(0).val('')
+                            $('input').eq(1).val('')
+                        } else {
+                            errMsg = "수정 할 노동자를 선택하세요."
+                            msgBody.text(errMsg)
+                            $('button').eq(1).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+                        }
+                    } else {
+                        errMsg = "입사일을 연도-월-일 형식으로 직접 혹은 선택하여 입력하세요."
+                        msgBody.text(errMsg)
+                        $('button').eq(1).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+                    }
+                } else {
+                    errMsg = "노동자명을 1자 이상, 5자 이하로 입력하세요."
+                    msgBody.text(errMsg)
+                    $('button').eq(1).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+                }
+            } else {
+                errMsg = "노동자가 없습니다."
+                msgBody.text(errMsg)
+                $('button').eq(1).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+            }
+        })
+
+        $('button').filter('.btn-warning').click(() => {
+            $('button').eq(2).removeAttr('data-target')
+            if (table.children().length != 0) {
+                if ($(':checked').length != 0) {
+                    $('button').eq(2).attr('data-target', '#delLaborerModal')
+                    $('input').eq(0).val('')
+                    $('input').eq(1).val('')
+                    $('button').filter('.btn-primary').attr('data-dismiss', 'modal')
+                    $('button').filter('.btn-primary').click(() => {
+                        $(':checked').parent().parent().remove()
+                    })
+                } else {
+                    errMsg = "삭제 할 노동자를 선택하세요."
+                    msgBody.text(errMsg)
+                    $('button').eq(2).attr('data-target', '#msgModal')
+                }
+            } else {
+                errMsg = "노동자가 없습니다."
+                msgBody.text(errMsg)
+                $('button').eq(2).attr('data-toggle', 'modal').attr('data-target', '#msgModal')
+            }
         })
     })
-
-    // tbody -> tr 객체 -> td 4개 엘레먼트 = 1명
 </script>
 
 <div class='container'>
@@ -117,7 +183,7 @@
                 <p></p>
             </div>
             <div class='modal-footer'>
-                <button type='button' class='btn btn-warning' data-dismiss='modal'>확인</button>
+                <button type='button' class='btn btn-danger' data-dismiss='modal'>확인</button>
             </div>
         </div>
     </div>
