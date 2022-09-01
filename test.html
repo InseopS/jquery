@@ -1,0 +1,212 @@
+<head>
+    <title>hr</title>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <link rel='stylesheet' href='http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' />
+</head>
+
+<script>
+    $(() => {
+        let table = $('tbody')
+        let msgBody = $('#infoModal').find('p')
+        let msgBox
+        let id = 1
+        let laborers = []
+        let viewPage = 1
+
+        let inputClear = () => {
+            $('#inputLaborerName').val('')
+            $('#inputLaborerHireDate').val('')
+        }
+
+        let callNameErr = () => {
+            msgBox = "노동자명을 1자 이상, 5자 이하로 입력하세요."
+            msgBody.text(msgBox)
+            $('div.modal-footer').children().remove().end().append($(`<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>`))
+            $('nav').find('button').eq(0).attr('data-toggle', 'modal').attr('data-target', '#infoModal').end().eq(1).attr('data-toggle', 'modal').attr('data-target', '#infoModal')
+        }
+
+        let callDateErr = () => {
+            msgBox = "입사일을 연도-월-일 형식으로 직접 혹은 선택하여 입력하세요."
+            msgBody.text(msgBox)
+            $('div.modal-footer').children().remove().end().append($(`<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>`))
+            $('nav').find('button').eq(0).attr('data-toggle', 'modal').attr('data-target', '#infoModal').end().eq(1).attr('data-toggle', 'modal').attr('data-target', '#infoModal')
+        }
+
+        let callCheckErr = () => {
+            msgBox = "노동자를 선택하세요."
+            msgBody.text(msgBox)
+            $('div.modal-footer').children().remove().end().append($(`<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>`))
+            $('nav').find('button').eq(1).attr('data-toggle', 'modal').attr('data-target', '#infoModal').end().eq(2).attr('data-toggle', 'modal').attr('data-target', '#infoModal')
+        }
+
+        let pageRefresh = () => {
+            table.children().remove()
+            for (let i = laborers.length; i < laborers.length + 5; i++) {
+                table.prepend(laborers[i - 5])
+            }
+
+            if (laborers.length / 5 < 5) {
+                $('.pagination').children().remove()
+                $('.pagination').append('<li class="page-item page-handle"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>')
+                for (let i = 0; i < laborers.length / 5; i++) {
+                    $('.page-item').last().after(`<li class="page-item page-handle"><a class="page-link" href="#">${i + 1}</a></li>`)
+                }
+                $('.pagination').append('<li class="page-item page-handle"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>')
+            }
+        }
+
+        pageRefresh()
+
+        if (!$('#zeroChk').length) table.append($(`<tr><td id="zeroChk" colspan="4" class="text-center">노동자가 없습니다.</td></tr>`))
+
+        $('nav').find('button').click(() => {
+            $('nav').find('button').removeAttr('data-toggle').removeAttr('data-target')
+        })
+
+        $('#addLaborerBtn').click(() => {
+            if ($('#inputLaborerName').val() && $('#inputLaborerName').val().length <= 5) {
+                if ($('#inputLaborerHireDate').val()) {
+                    if ($('#zeroChk').length) table.children().remove()
+
+                    laborers.push($(`<tr><td><input type="radio" name="select"/></td><td>${id++}</td><td>${$('#inputLaborerName').val()}</td><td>${$('#inputLaborerHireDate').val()}</td></tr>`))
+                    // inputClear()
+                    pageRefresh()
+
+                    $('nav').find('button').removeAttr('data-toggle').removeAttr('data-target')
+                } else callDateErr()
+            } else callNameErr()
+        })
+
+        $('#fixLaborerBtn').click(() => {
+            if (table.children().eq(0).children().length != 1) {
+                if ($(':checked').val()) {
+                    if ($('#inputLaborerName').val() && $('#inputLaborerName').val().length <= 5) {
+                        if ($('#inputLaborerHireDate').val()) {
+                            $(':checked').parent().siblings().eq(1).text($('#inputLaborerName').val())
+                            $(':checked').parent().siblings().eq(2).text($('#inputLaborerHireDate').val())
+
+                            inputClear()
+
+                            $('nav').find('button').removeAttr('data-toggle').removeAttr('data-target')
+                        } else callDateErr()
+                    } else callNameErr()
+                } else callCheckErr()
+            }
+        })
+
+        $('#delLaborerBtn').click(() => {
+            if (table.children().eq(0).children().length != 1) {
+                if ($(':checked').val()) {
+                    msgBox = "노동자를 삭제하시겠습니까?"
+                    msgBody.text(msgBox)
+                    $('div.modal-footer').children().remove().end().append($(`<button type='button' class='btn btn-secondary' data-dismiss='modal'>아니오</button><button type='button' class='btn btn-primary' data-dismiss='modal'>예</button>`))
+
+                    $('#delLaborerBtn').attr('data-toggle', 'modal').attr('data-target', '#infoModal')
+                    inputClear()
+
+                    $('button').filter('.btn-primary').click(() => {
+                        laborers.splice($(':checked').parent().siblings().eq(0).text() - 1, 1)
+                        pageRefresh()
+
+                        if (!table.children().length) table.append($(`<tr><td id="zeroChk" colspan="4" class="text-center">노동자가 없습니다.</td></tr>`))
+                    })
+                } else callCheckErr()
+            }
+        })
+
+        $(document).on('click', '.page-handle', (e) => {
+            if (viewPage != e.target.text) {
+                viewPage = e.target.text
+                $('.page-handle').removeClass('aria-current active')
+                $(`.page-handle:contains('${e.target.text}')`).addClass('aria-current active')
+                if (!$('#zeroChk').length) table.children().remove()
+                for (let i = (laborers.length - e.target.text * 5); i < laborers.length + 5 - e.target.text * 5; i++) {
+                    table.prepend(laborers[i])
+                }
+            }
+        })
+    })
+</script>
+
+<div class='container'>
+    <div class='row'>
+        <div class='col'>
+            <header class='jumbotron p-2'>
+                <h1 class='text-center'>HR</h1>
+            </header>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <form>
+                <div class='row mb-3'>
+                    <div class='col-2'>
+                        <input type='text' id='inputLaborerName' class='form-control' placeholder='노동자명' />
+                    </div>
+                    <div class='col-4'>
+                        <input type='date' id='inputLaborerHireDate' class='form-control' />
+                    </div>
+                    <div class='col'>
+                        <nav class='d-flex'>
+                            <button type='button' id='addLaborerBtn' class='btn btn-success flex-fill mr-1'>
+                                <i class='fas fa-plus'></i>
+                                <sapn class='label d-none d-sm-inline'>추가</sapn>
+                            </button>
+                            <button type='button' id='fixLaborerBtn' class='btn btn-info flex-fill mr-1'>
+                                <i class='fas fa-edit'></i><span class='label d-none d-sm-inline'>수정</span>
+                            </button>
+                            <button type='button' id='delLaborerBtn' class='btn btn-warning flex-fill'
+                                data-toggle='modal' data-target='#infoModal'>
+                                <i class='fas fa-trash-alt'></i><span class='label d-none d-sm-inline'>삭제</span>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>이름</th>
+                                    <th>입사일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+    </ul>
+</nav>
+
+<div class='modal fade' tabindex='-1' id='infoModal'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal'>
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <p></p>
+            </div>
+            <div class='modal-footer'>
+            </div>
+        </div>
+    </div>
+</div>
