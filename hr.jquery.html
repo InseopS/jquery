@@ -18,7 +18,7 @@
 
             if (!field.length) errMsg = '노동자를 선택하세요.'
             else {
-                if (!field.val()) errMsg = filed.attr('placeholder') + ' 입력하세요.'
+                if (!field.val()) errMsg = field.attr('placeholder') + ' 입력하세요.'
                 else isGood = true
             }
 
@@ -115,7 +115,6 @@
                 change() {
                     $('#laborerName').val($(this).parent().siblings().eq(1).text())
                     $('#hireDate').val($(this).parent().siblings().eq(2).text())
-                    console.log($(this).parent().siblings().eq(2).text())
                 }
             }, '#laborerId')
         }
