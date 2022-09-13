@@ -18,7 +18,7 @@
 
             if (!field.length) errMsg = '노동자를 선택하세요.'
             else {
-                if (!field.val()) errMsg = filed.attr('placeholder') + ' 입력하세요.'
+                if (!field.val()) errMsg = field.attr('placeholder') + ' 입력하세요.'
                 else isGood = true
             }
 
@@ -72,7 +72,7 @@
 
             // 노동자 수정
             $('#fixLaborerBtn').click(() => {
-                if ($('#laborerId:checked') &&
+                if (isVal($('#laborerId:checked')) &&
                     isVal($('#laborerName')) && isVal($('#hireDate'))) {
                     let laborerId = $('#laborerId:checked').val()
 
